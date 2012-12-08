@@ -14,7 +14,7 @@ public abstract class UIListCell<T> extends LinearLayout {
     }
 
     public UIListCell(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs); //TODO: No defStyle in LinearLayour?
+        super(context, attrs, defStyle);
     }
 
     /*
