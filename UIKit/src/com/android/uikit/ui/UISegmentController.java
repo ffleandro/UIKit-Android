@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 public class UISegmentController extends LinearLayout {
     private OnSegmentClickListener segmentClickListener;
-    private int selected;
+    private int selected = -1;
 
     public static interface OnSegmentClickListener {
         public void onSegmentClick(int index, View view);
@@ -46,16 +46,15 @@ public class UISegmentController extends LinearLayout {
 
         for(int i = 0; i < getChildCount(); i++){
             View view = getChildAt(i);
-            view.setTag(new Integer(i));
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    unselectAll();
-                    v.setSelected(true);
-
                     int index = getChildIndex(v);
                     if(index != selected){
+                        if(selected != -1) getChildAt(selected).setSelected(false);
                         selected = index;
+                        v.setSelected(true);
+
                         if(segmentClickListener != null) segmentClickListener.onSegmentClick(index, v);
                     }
                 }
@@ -69,12 +68,6 @@ public class UISegmentController extends LinearLayout {
         }
 
         return -1;
-    }
-
-    private void unselectAll(){
-        for(int i = 0; i < getChildCount(); i++){
-            getChildAt(i).setSelected(false);
-        }
     }
 
     public void select(int index){
