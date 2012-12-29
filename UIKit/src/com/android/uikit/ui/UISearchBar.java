@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-public abstract class UISearchBar extends RelativeLayout {
+public class UISearchBar extends RelativeLayout {
     protected EditText editText;
     protected Button btnClear;
     protected OnSearchListener searchListener;
