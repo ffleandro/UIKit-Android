@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-public abstract class UINavigationBar extends RelativeLayout {
+public class UINavigationBar extends RelativeLayout {
     protected View leftView;
     protected View centerView;
     protected View rightView;
@@ -22,43 +22,66 @@ public abstract class UINavigationBar extends RelativeLayout {
         super(context, attrs, defStyle);
     }
 
-    /* Override this method to inflate the layout and cache view pointers to left, center and right views */
-    @Override
-    protected abstract void onFinishInflate();
-
     public void showLeftView(){
-        leftView.setVisibility(View.VISIBLE);
+        if(leftView != null)
+            leftView.setVisibility(View.VISIBLE);
     }
 
     public void showCenterView(){
-        centerView.setVisibility(View.VISIBLE);
+        if(centerView != null)
+            centerView.setVisibility(View.VISIBLE);
     }
 
     public void showRightView(){
-        rightView.setVisibility(View.VISIBLE);
+        if(rightView != null)
+            rightView.setVisibility(View.VISIBLE);
     }
 
     public void hideLeftView(){
-        leftView.setVisibility(View.GONE);
+        if(leftView != null)
+            leftView.setVisibility(View.GONE);
     }
 
     public void hideCenterView(){
-        leftView.setVisibility(View.GONE);
+        if(centerView != null)
+            centerView.setVisibility(View.GONE);
     }
 
     public void hideRightView(){
-        leftView.setVisibility(View.GONE);
+        if(rightView != null)
+            rightView.setVisibility(View.GONE);
     }
 
     public void setLeftView(View view){
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
+        params.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+        view.setLayoutParams(params);
+
+        if(leftView != null) removeView(leftView);
+        addView(view);
         leftView = view;
     }
 
     public void setCenterView(View view){
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+        params.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+        view.setLayoutParams(params);
+
+        if(centerView != null) removeView(centerView);
+        addView(view);
         centerView = view;
     }
 
     public void setRightView(View view){
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
+        params.addRule(RelativeLayout.CENTER_VERTICAL, 1);
+        view.setLayoutParams(params);
+
+        if(rightView != null) removeView(rightView);
+        addView(view);
         rightView = view;
     }
 
